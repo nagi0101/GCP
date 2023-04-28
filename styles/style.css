@@ -1,0 +1,166 @@
+:root {
+    --primary-color: #02343F;
+    --secondary-color: #F0EDCC;
+    --middle-color: #799186;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+main {
+    min-height: 100vh;
+    background-color: var(--primary-color);
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#psycho-question {
+    width: 100%;
+    padding: 10vh 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#psycho-question > .question {
+    min-width: 50%;
+}
+#psycho-question > .result {
+    width: 80%;
+}
+
+@keyframes complete {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    10%{
+        opacity: 1;
+        transform: translateY(10%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-30vh);
+        visibility: hidden;
+    }
+}
+
+.complete {
+    position: absolute;
+    animation: complete 1s forwards;
+}
+
+button#btn-start {
+    box-sizing: content-box;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 2rem 4rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+}
+
+button#btn-start:hover {
+    box-shadow: 0 10px 16px  rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px) scale(1.05);
+}
+
+.question {
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--middle-color);
+    border-radius: 5px;
+    padding: 5rem 2rem;
+}
+
+.question > * {
+    width: 100%;
+    height: 100%;
+}
+
+.question h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.question .choice-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.question .choice-container .choice {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.question .choice-container .choice:hover {
+    background-color: var(--middle-color);
+}
+
+.result {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--middle-color);
+    border-radius: 5px;
+    padding: 2rem 1rem 1rem 1rem;
+    margin-bottom: 2rem;
+}
+
+.result > h2 {
+    font-size: 1.8rem;
+    font-weight: bolder;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.result > p {
+    margin-bottom: 1.2rem;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+}
+
+
+@media screen and (max-width: 1023px) {
+    :root {
+        font-size: 14px;
+    }
+    #psycho-question > .result {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    :root {
+        font-size: 13px;
+    }
+    #psycho-question > .result {
+        width: 90%;
+    }
+}
