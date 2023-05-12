@@ -58,6 +58,7 @@ main {
 .complete {
     position: absolute;
     animation: complete 1s forwards;
+    pointer-events: none;
 }
 
 button#btn-start {
