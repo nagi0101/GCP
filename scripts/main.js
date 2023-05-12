@@ -21,29 +21,29 @@ const testStatus = new Test.TestStatus();
 const questions = [
   new Test.Question("평소에는 아무렇지도 않던 일들이 괴롭고 귀찮지 않으신가요?", defaultChoice),
   new Test.Question("요즘 입맛이 없지 않으신가요?", defaultChoice),
-  new Test.Question("가족이나 친구가 도와주더라도 울적한 기분을 떨쳐버릴 수 없었다.", defaultChoice),
-  new Test.Question("다른 사람들만큼 능력 있다고 느꼈다. ", reverseChoice),
-  new Test.Question("무슨 일을 하든 정신을 집중하기가 힘들었다. ", defaultChoice),
-  new Test.Question("우울했다", defaultChoice),
-  new Test.Question("하는 일마다 힘들게 느껴졌다.", defaultChoice),
-  new Test.Question("미래에 대하여 희망적으로 느꼈다.", reverseChoice),
-  new Test.Question("내 인생은 실패작이라고 생각했다.", defaultChoice),
-  new Test.Question("무서움을 느꼈다.", defaultChoice),
-  new Test.Question("잠을 설쳤다", defaultChoice),
-  new Test.Question("행복했다.", reverseChoice),
-  new Test.Question("평소보다 말을 적게 했다", defaultChoice),
-  new Test.Question("외로움을 느꼈다.", defaultChoice),
-  new Test.Question("사람들이 불친절했다.", defaultChoice),
-  new Test.Question("인생이 즐거웠다.", reverseChoice),
-  new Test.Question("울음을 터뜨린 적이 있었다.", defaultChoice),
-  new Test.Question("슬픔을 느꼈다. ", defaultChoice),
-  new Test.Question("사람들이 나를 싫어한다고 느꼈다. ", defaultChoice),
-  new Test.Question("일을 제대로 진척시킬 수 없었다.", defaultChoice),
+  new Test.Question("가족이나 친구가 도와주더라도 울적한 기분이 들지 않나요?", defaultChoice),
+  new Test.Question("다른 사람들만큼 능력 있다고 느끼시나요?", reverseChoice),
+  new Test.Question("사소한 일에도 정신을 집중하기가 힘들지 않았나요? ", defaultChoice),
+  new Test.Question("우울하지 않으셨나요?", defaultChoice),
+  new Test.Question("하는 일마다 힘들게 느끼시진 않았나요?", defaultChoice),
+  new Test.Question("미래에 대하여 희망적으로 느끼셨나요?", reverseChoice),
+  new Test.Question("자신의 인생은 실패작이라고 생각하진 않으셨나요?", defaultChoice),
+  new Test.Question("두려움을 느끼시지는 않았나요?", defaultChoice),
+  new Test.Question("잠을 설치지는 않으셨나요?", defaultChoice),
+  new Test.Question("행복하셨나요?", reverseChoice),
+  new Test.Question("평소보다 말을 적게 하지 않으셨나요?", defaultChoice),
+  new Test.Question("외로움을 느끼지는 않으셨나요?", defaultChoice),
+  new Test.Question("사람들이 불친절하진 않았나요?", defaultChoice),
+  new Test.Question("인생이 즐거우셨나요?", reverseChoice),
+  new Test.Question("울음을 터뜨린 적이 있으신가요?", defaultChoice),
+  new Test.Question("슬프지는 않으셨나요?", defaultChoice),
+  new Test.Question("사람들이 자신을 싫어한다고 느끼지는 않으셨나요?", defaultChoice),
+  new Test.Question("일을 제대로 할 수 없지 않으셨나요?", defaultChoice),
 ];
 const results = [
   new Test.Result("검사 결과", () => {
     const score = document.createElement("p");
-    score.innerText = `점수 합계는 ${testStatus.totalScore}점입니다.`;
+    score.innerText = `총 ${testStatus.totalScore}점입니다.`;
 
     const scoreEvaluate = document.createElement("p");
     if (testStatus.totalScore <= 15) {
