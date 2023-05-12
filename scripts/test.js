@@ -2,11 +2,15 @@ class Choice {
   constructor(text, callback) {
     this.text = text;
     this.callback = callback;
+  }
 
-    this.element = document.createElement("button");
-    this.element.classList.add("choice");
-    this.element.innerText = this.text;
-    this.element.addEventListener("click", this.callback);
+  createElement() {
+    const element = document.createElement("button");
+    element.classList.add("choice");
+    element.innerText = this.text;
+    element.addEventListener("click", this.callback);
+
+    return element;
   }
 }
 
@@ -15,22 +19,29 @@ class Question {
     this.question = question;
     this.choices = choices;
 
-    this.element = document.createElement("div");
-    this.element.classList.add("question");
+    this.element = this.createElement();
+  }
+
+  createElement() {
+    const element = document.createElement("div");
+    element.classList.add("question");
 
     const titleElement = document.createElement("h2");
     titleElement.innerText = this.question;
-    this.element.appendChild(titleElement);
+    element.appendChild(titleElement);
 
     const choiceContainer = document.createElement("div");
     choiceContainer.classList.add("choice-container");
     this.choices.forEach((choice) => {
-      choice.element.addEventListener("click", () => {
-        this.element.classList.add("complete");
+      const choiceElement = choice.createElement();
+      choiceElement.addEventListener("click", () => {
+        element.classList.add("complete");
       });
-      choiceContainer.appendChild(choice.element);
+      choiceContainer.appendChild(choiceElement);
     });
-    this.element.appendChild(choiceContainer);
+    element.appendChild(choiceContainer);
+
+    return element;
   }
 }
 
@@ -53,7 +64,6 @@ class QuestionManager {
   };
 
   handleChoiceSelection = () => {
-    console.log(this.testReference.testStatus.totalScore);
     this.currentQuestionIndex++;
     if (this.currentQuestionIndex < this.questions.length) {
       this.displayQuestion();
