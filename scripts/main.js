@@ -19,6 +19,7 @@ const reverseChoice = [
 
 const testStatus = new Test.TestStatus();
 const questions = [
+  new Test.Subheading("지난 일주일동안..."),
   new Test.Question("평소에는 아무렇지도 않던 일들이 괴롭고 귀찮지 않으신가요?", defaultChoice),
   new Test.Question("요즘 입맛이 없지 않으신가요?", defaultChoice),
   new Test.Question("가족이나 친구가 도와주더라도 울적한 기분이 들지 않나요?", defaultChoice),
