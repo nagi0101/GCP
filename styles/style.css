@@ -152,6 +152,7 @@ button#btn-start:hover {
     :root {
         font-size: 14px;
     }
+    #psycho-question > .question,
     #psycho-question > .result {
         width: 90%;
     }
@@ -161,6 +162,7 @@ button#btn-start:hover {
     :root {
         font-size: 13px;
     }
+    #psycho-question > .question,
     #psycho-question > .result {
         width: 90%;
     }
