@@ -14,6 +14,21 @@ class Choice {
   }
 }
 
+class Subheading {
+  constructor(subheading, elementType="h3") {
+    this.subheading = subheading;
+    this.elementType = elementType;
+  }
+   
+  createElement() {
+    const element = document.createElement(this.elementType);
+    element.classList.add("subheading");
+    element.innerText = this.subheading;
+    
+    return element;
+  }
+}
+
 class Question {
   constructor(question, choices) {
     this.question = question;
@@ -52,24 +67,41 @@ class QuestionManager {
     this.questionContainer = questionContainer;
     this.questions = questions;
     this.currentQuestionIndex = 0;
+    this.lastSubheading = null;
   }
 
   displayQuestion = () => {
     const currentQuestion = this.questions[this.currentQuestionIndex];
-    currentQuestion.element.querySelectorAll(".choice").forEach((choice) => {
-      choice.addEventListener("click", this.handleChoiceSelection);
-    });
 
+    if(currentQuestion instanceof Subheading) {
+      this.lastSubheading = currentQuestion;
+      this.endCurrentQuestion();
+      return;
+    }
+
+    currentQuestion.element.querySelectorAll(".choice").forEach((choice) => {
+      choice.addEventListener("click", this.endCurrentQuestion);
+    });
+    
+    if(this.lastSubheading) {
+      const subheadingElement = this.lastSubheading.createElement();
+      currentQuestion.element.insertBefore(subheadingElement, currentQuestion.element.firstChild);
+    }
     this.questionContainer.appendChild(currentQuestion.element);
   };
 
-  handleChoiceSelection = () => {
+  endCurrentQuestion = () => {
     this.currentQuestionIndex++;
-    if (this.currentQuestionIndex < this.questions.length) {
-      this.displayQuestion();
-    } else {
+    if (this.currentQuestionIndex >= this.questions.length) {
       this.endCallback();
+      return;
     }
+    
+    const nextStep = this.questions[this.currentQuestionIndex];
+    if (nextStep instanceof Subheading) {
+      this.lastSubheading = nextStep;
+    }
+    this.displayQuestion();
   };
 }
 
@@ -139,6 +171,7 @@ class TestStatus {
 export default {
   Choice,
   Question,
+  Subheading,
   QuestionManager,
   Result,
   ResultManager,
