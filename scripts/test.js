@@ -29,6 +29,25 @@ class Subheading {
   }
 }
 
+class Loading {
+  constructor(time, promise = new Promise((resolve)=>{resolve();})) {
+    this.time = time;
+    this.promise = promise;
+  }
+
+  createElement() {
+    const element = document.createElement("div");
+    element.classList.add("loading");
+    
+    const spinner = document.createElement("div");
+    spinner.classList.add("spinner");
+
+    element.appendChild(spinner);
+
+    return element;
+  }
+}
+
 class Question {
   constructor(question, choices) {
     this.question = question;
@@ -72,22 +91,35 @@ class QuestionManager {
 
   displayQuestion = () => {
     const currentQuestion = this.questions[this.currentQuestionIndex];
+    const currentElement = currentQuestion.createElement();
 
-    if(currentQuestion instanceof Subheading) {
+    if (currentQuestion instanceof Subheading) {
       this.lastSubheading = currentQuestion;
       this.endCurrentQuestion();
       return;
     }
 
-    currentQuestion.element.querySelectorAll(".choice").forEach((choice) => {
-      choice.addEventListener("click", this.endCurrentQuestion);
-    });
-    
-    if(this.lastSubheading) {
-      const subheadingElement = this.lastSubheading.createElement();
-      currentQuestion.element.insertBefore(subheadingElement, currentQuestion.element.firstChild);
+    if (currentQuestion instanceof Question) {
+      currentElement.querySelectorAll(".choice").forEach((choice) => {
+        choice.addEventListener("click", this.endCurrentQuestion);
+      });
+      if (this.lastSubheading) {
+        const subheadingElement = this.lastSubheading.createElement();
+        currentElement.insertBefore(
+          subheadingElement,
+          currentElement.firstChild
+        );
+      }
+    } else if (currentQuestion instanceof Loading) {
+      setTimeout(()=>{
+        currentQuestion.promise.then(()=>{
+          this.endCurrentQuestion();
+          currentElement.classList.add("complete");
+        })
+      }, currentQuestion.time);
     }
-    this.questionContainer.appendChild(currentQuestion.element);
+
+    this.questionContainer.appendChild(currentElement);
   };
 
   endCurrentQuestion = () => {
@@ -96,7 +128,7 @@ class QuestionManager {
       this.endCallback();
       return;
     }
-    
+
     const nextStep = this.questions[this.currentQuestionIndex];
     if (nextStep instanceof Subheading) {
       this.lastSubheading = nextStep;
@@ -172,6 +204,7 @@ export default {
   Choice,
   Question,
   Subheading,
+  Loading,
   QuestionManager,
   Result,
   ResultManager,
