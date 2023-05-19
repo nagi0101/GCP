@@ -141,20 +141,25 @@ class Result {
   constructor(title, callback) {
     this.title = title;
     this.callback = callback;
+    this.display = true;
   }
-
-  get element() {
+  
+  createElement = () => {
     const returnElement = document.createElement("div");
     returnElement.classList.add("result");
-
+  
     const titleElement = document.createElement("h2");
     titleElement.innerText = this.title;
-
+  
     returnElement.appendChild(titleElement);
-    this.callback().forEach((result) => {
+    const childElements = this.callback();
+    childElements.forEach((result) => {
       returnElement.appendChild(result);
     });
-
+    if(childElements.length === 0) {
+      this.display = false;
+    }
+  
     return returnElement;
   }
 }
@@ -168,7 +173,10 @@ class ResultManager {
 
   displayResult = () => {
     this.results.forEach((result) => {
-      this.resultContainer.appendChild(result.element);
+      const element = result.createElement();
+      if(result.display) {
+        this.resultContainer.appendChild(element);
+      }
     });
   };
 }
