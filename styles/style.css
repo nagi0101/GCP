@@ -158,6 +158,31 @@ button#btn-start:hover {
     line-height: 1.8rem;
 }
 
+.result>table,
+.result>table th,
+.result>table td {
+    border: 1px solid #02343F;
+}
+
+.result>table {
+    border-collapse: separate;
+    border-spacing: 1px;
+    width: 100%;
+}
+
+.result>table th,
+.result>table td {
+    padding: 0.5rem;
+    margin: auto;
+}
+
+.result>table thead th {
+    font-weight: bold;
+}
+
+.result>table th:last-child {
+    text-align: start;
+}
 
 @media screen and (max-width: 1023px) {
     :root {

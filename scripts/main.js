@@ -49,15 +49,55 @@ const results = [
     const scoreEvaluate = document.createElement("p");
     if (testStatus.totalScore <= 15) {
       scoreEvaluate.innerText = `평온한 마음을 가지고 계시군요:)`;
-    } else if (testStatus.totalScore <= 20){
+    } else if (testStatus.totalScore <= 20) {
       scoreEvaluate.innerText = `괜찮아질 때까지 울어요. 아무리 울어도 괜찮아지지 않는다면, 혼자서 고민하지 말아요.`;
-    } else if (testStatus.totalScore <= 24){
+    } else if (testStatus.totalScore <= 24) {
       scoreEvaluate.innerText = `지금까지 많이 힘드셨죠? 같이 이야기 나눠요. 편하게 전화주세요.`;
     } else {
       scoreEvaluate.innerText = `먼저 안아주지 못해서 미안해요. 지금이라도 같이 이야기 나누어봐요.`;
     }
 
     return [score, scoreEvaluate];
+  }),
+  new Test.Result("결과 분석", () => {
+    const resultList = [
+      ["16점 미만", "건강한 심리 상태를 유지하고 있습니다. 다른 사람들에게도 당신의 행복을 전해주세요:)"],
+      ["16~20점", "약간 우울한 상태시군요. 무엇이 나를 힘들게 하는지 곰곰히 생각해봅시다."],
+      ["21~24점", "우울한 심리 상태에 있으십니다. 주위의 사람들에게 도움을 청해보세요."],
+      ["25~37점", "심각히 우울한 상태입니다. 심리 상담을 받으시길 추천드립니다."],
+      ["38점 이상", "우울증은 의지로 극복할 수 없습니다. 적극적으로 정신건강 전문가의 도움을 받으세요."],
+    ];
+
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
+
+    const th0 = document.createElement("th");
+    const th1 = document.createElement("th");
+
+    th0.innerText = "구간";
+    th1.innerText = "설명";
+
+    thead.appendChild(th0);
+    thead.appendChild(th1);
+
+    resultList.forEach((result) => {
+      const tr = document.createElement("tr");
+
+      const th0 = document.createElement("th");
+      const th1 = document.createElement("th");
+      th0.innerText = result[0];
+      th1.innerText = result[1];
+      tr.appendChild(th0);
+      tr.appendChild(th1);
+
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    return [table];
   }),
   new Test.Result("그거 아시나요?", () => {
     const p = document.createElement("p");
