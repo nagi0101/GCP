@@ -1,5 +1,5 @@
 class Choice {
-  constructor(text, callback) {
+  constructor(text, callback = () => {}) {
     this.text = text;
     this.callback = callback;
   }
