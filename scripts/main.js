@@ -3,6 +3,42 @@ import Test from "./test.js";
 const questionDiv = document.querySelector("#psycho-question");
 const startBtn = document.querySelector("#btn-start");
 
+const mythAndFacts = [
+  [
+      new Test.Subheading("혹시 그거 아세요?#1"),
+      new Test.Question("우울증은 강한 스트레스에서 오는 것이 아니랍니다.", [
+          new Test.Choice("사실 우울증은 별 이유없이 주기적으로 찾아온답니다"),
+          new Test.Choice("오히려 스트레스로 인한 우울감은 치료까진 필요 없다고 해요"),
+      ]),
+      new Test.Subheading("지난 일주일동안..."),
+  ],
+  [
+      new Test.Subheading("혹시 그거 아세요?#2"),
+      new Test.Question("내성적인 사람이 우울증에 더 자주 걸리는 것은 아니랍니다.", [
+          new Test.Choice("활발하고 외향적인 사람이라고 우울증에 더 강한 것은 아니에요"),
+      ]),
+      new Test.Subheading("지난 일주일동안..."),
+  ],
+  [
+      new Test.Subheading("혹시 그거 아세요?#3"),
+      new Test.Question("심리 상담은 꼭 심각한 문제가 있어서 받는 것은 아니랍니다.", [
+        new Test.Choice("서구권에선 심리 상담을 일상적이고 보편적인 것으로 생각한다는거 아시나요?"),
+        new Test.Choice("고민 상담과 같은 느낌으로 심리 상담을 진행하는 경우가 굉장히 많다고 합니다"),
+      ]),
+      new Test.Subheading("지난 일주일동안..."),
+  ],
+  [
+      new Test.Subheading("혹시 그거 아세요?#4"),
+      new Test.Question("당연히도, 상담자는 내담자 분들을 따듯하게 맞아주십니다.", [
+          new Test.Choice("상담자는 많은 교육을 받은 전문가 분들이에요"),
+          new Test.Choice("혹시 자신을 이상하게 바라보지 않을까 걱정할 필요 없어요"),
+      ]),
+      new Test.Subheading("지난 일주일동안..."),
+  ],
+];
+
+const testStatus = new Test.TestStatus();
+
 const defaultChoice = [
   new Test.Choice("극히 드물게", () => (testStatus.totalScore += 0)),
   new Test.Choice("가끔", () => (testStatus.totalScore += 1)),
@@ -20,7 +56,7 @@ let positionPromiseResolve;
 const positionPromise = new Promise((resolve) => {
   positionPromiseResolve = resolve;
 });
-const testStatus = new Test.TestStatus();
+
 const questions = [
   new Test.Subheading("지난 일주일동안..."),
   new Test.Question("평소에는 아무렇지도 않던 일들이 괴롭고 귀찮지 않으신가요?", defaultChoice),
@@ -28,21 +64,25 @@ const questions = [
   new Test.Question("가족이나 친구가 도와주더라도 울적한 기분이 들지 않나요?", defaultChoice),
   new Test.Question("다른 사람들만큼 능력 있다고 느끼시나요?", reverseChoice),
   new Test.Question("사소한 일에도 정신을 집중하기가 힘들지 않았나요? ", defaultChoice),
+  ...mythAndFacts[0],
   new Test.Question("우울하지 않으셨나요?", defaultChoice),
   new Test.Question("하는 일마다 힘들게 느끼시진 않았나요?", defaultChoice),
   new Test.Question("미래에 대하여 희망적으로 느끼셨나요?", reverseChoice),
   new Test.Question("자신의 인생은 실패작이라고 생각하진 않으셨나요?", defaultChoice),
   new Test.Question("두려움을 느끼시지는 않았나요?", defaultChoice),
+  ...mythAndFacts[1],
   new Test.Question("잠을 설치지는 않으셨나요?", defaultChoice),
   new Test.Question("행복하셨나요?", reverseChoice),
   new Test.Question("평소보다 말을 적게 하지 않으셨나요?", defaultChoice),
   new Test.Question("외로움을 느끼지는 않으셨나요?", defaultChoice),
   new Test.Question("사람들이 불친절하진 않았나요?", defaultChoice),
+  ...mythAndFacts[2],
   new Test.Question("인생이 즐거우셨나요?", reverseChoice),
   new Test.Question("울음을 터뜨린 적이 있으신가요?", defaultChoice),
   new Test.Question("슬프지는 않으셨나요?", defaultChoice),
   new Test.Question("사람들이 자신을 싫어한다고 느끼지는 않으셨나요?", defaultChoice),
   new Test.Question("일을 제대로 할 수 없지 않으셨나요?", defaultChoice),
+  ...mythAndFacts[3],
   new Test.Subheading("그 누구에게도 알리지 않으니 안심하셔도 됩니다"),
   new Test.Question(
     "주변의 상담소를 알려드리고 싶은데, 제게 위치를 알려주시겠어요?",
