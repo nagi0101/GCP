@@ -354,6 +354,11 @@ const results = [
     const a = document.createElement("a");
     a.innerText = closestLocation.name;
     a.href = `tel:${closestLocation.tel}`;
+    a.onclick = ()=>{
+      gtag("event", "click_closest_location", {"event_name": "eventName"});
+    };
+
+    gtag("event", "view_closest_location", {"event_name": "eventName"});
 
     return [p, a];
   }),
