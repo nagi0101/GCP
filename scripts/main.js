@@ -136,7 +136,7 @@ const results = [
   new Test.Result("검사 결과", () => {
     const score = document.createElement("p");
     score.innerText = `총 ${testStatus.totalScore}점입니다.`;
-
+    
     const scoreEvaluate = document.createElement("p");
     if (testStatus.totalScore <= 15) {
       scoreEvaluate.innerText = `평온한 마음을 가지고 계시군요:)`;
@@ -148,6 +148,11 @@ const results = [
       scoreEvaluate.innerText = `먼저 안아주지 못해서 미안해요. 지금이라도 같이 이야기 나누어봐요.`;
     }
 
+    gtag("event", "test_result", {
+      "event_name": "test_result",
+      "test_result": testStatus.totalScore,
+    });
+    
     return [score, scoreEvaluate];
   }),
   new Test.Result("결과 분석", () => {
