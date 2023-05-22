@@ -57,7 +57,33 @@ const positionPromise = new Promise((resolve) => {
   positionPromiseResolve = resolve;
 });
 
+const SEX_CODE = {
+  MALE : 0,
+  FEMALE : 1,
+};
+const AGE_CODE = {
+  _13_19: 0,
+  _20_29: 1, 
+  _30_39: 2, 
+  _40_49: 3, 
+  _50_59: 4, 
+  _60_: 5, 
+};
+
 const questions = [
+  new Test.Subheading("개인정보는 저장되지 않으니 안심하세요"),
+  new Test.Question("여러분의 성별을 알려주시겠어요?", [
+    new Test.Choice("남성", () => (testStatus.sex = SEX_CODE.MALE)),
+    new Test.Choice("여성", () => (testStatus.sex = SEX_CODE.FEMALE)),
+  ]),
+  new Test.Question("여러분의 나이를 알려주시겠어요?", [
+    new Test.Choice("13~19", () => (testStatus.age = AGE_CODE._13_19)),
+    new Test.Choice("20~29", () => (testStatus.age = AGE_CODE._20_29)),
+    new Test.Choice("30~39", () => (testStatus.age = AGE_CODE._30_39)),
+    new Test.Choice("40~49", () => (testStatus.age = AGE_CODE._40_49)),
+    new Test.Choice("50~59", () => (testStatus.age = AGE_CODE._50_59)),
+    new Test.Choice("60~", () => (testStatus.age = AGE_CODE._60_)),
+  ]),
   new Test.Subheading("지난 일주일동안..."),
   new Test.Question("평소에는 아무렇지도 않던 일들이 괴롭고 귀찮지 않으신가요?", defaultChoice),
   new Test.Question("요즘 입맛이 없지 않으신가요?", defaultChoice),
@@ -364,10 +390,97 @@ const results = [
   }),
   new Test.Result("그거 아시나요?", () => {
     const p = document.createElement("p");
-    p.innerText =
-      "비대면 우울증 상담 참가자들의 42%가 온라인 상담만으로 우울증이 호전되었다는 연구 결과가 있습니다.";
 
-    return [p];
+    const ageLevel = [
+      "13~19세",
+      "20~29세",
+      "30~39세",
+      "40~49세",
+      "50~59세",
+      "60세 이상",
+    ]
+
+    const suicideReason = [
+        [
+            [
+                ["성적, 진학 문제", 35.21],
+                ["질환, 우울감, 장애", 22],
+                ["외로움, 고독", 11.51],
+            ],
+            [
+                ["질환, 우울감, 장애", 31.75],
+                ["경제적 어려움", 22.56],
+                ["직장 문제", 14.55],
+            ],
+            [
+                ["경제적 어려움", 37.98],
+                ["질환, 우울감, 장애", 23.86],
+                ["직장 문제", 20.46],
+            ],
+            [
+                ["경제적 어려움", 41.3],
+                ["질환, 우울감, 장애", 21.03],
+                ["직장 문제", 15.25],
+            ],
+            [
+                ["경제적 어려움", 41.81],
+                ["질환, 우울감, 장애", 21.72],
+                ["가정 불화", 10.89],
+            ],
+            [
+                ["질환, 우울감, 장애", 36.83],
+                ["경제적 어려움", 36.69],
+                ["외로움, 고독", 11.91],
+            ],
+        ],
+        [
+          [
+            ["질환, 우울감, 장애", 40.25],
+            ["성적, 진학 문제", 28.6],
+            ["외로움, 고독", 11.11],
+          ],
+          [
+            ["질환, 우울감, 장애", 39.64],
+            ["직장 문제", 27.54],
+            ["경제적 어려움", 9.92],
+          ],
+          [
+            ["질환, 우울감, 장애", 34.24],
+            ["경제적 어려움", 22.13],
+            ["직장 문제", 16.66],
+          ],
+          [
+            ["질환, 우울감, 장애", 35.01],
+            ["경제적 어려움", 25.84],
+            ["가정불화", 18.68],
+          ],
+          [
+            ["질환, 우울감, 장애", 36.07],
+            ["경제적 어려움", 31.51],
+            ["가정불화", 10.77],
+          ],
+          [
+            ["질환, 우울감, 장애", 51.16],
+            ["경제적 어려움", 25.25],
+            ["외로움, 고독", 9.67],
+          ],
+        ],
+    ];
+
+    p.innerText = `자살 충동을 느낀 ${ageLevel[testStatus.age]}의 ${
+        ["남성", "여성"][testStatus.sex]
+    }들은 다음과 같은 이유들로 자살 충동을 느꼈다고 합니다.`;
+
+    const ul = document.createElement("ul");
+    for (let i = 0; i < 3; ++i) {
+        const li = document.createElement("li");
+        li.innerText = `${
+            suicideReason[testStatus.sex][testStatus.age][i][0]
+        } : ${suicideReason[testStatus.sex][testStatus.age][i][1]}%`;
+        ul.appendChild(li);
+    }
+
+    return [p, ul];
   }),
   new Test.Result("망설이지 마세요", () => {
     const a = document.createElement("a");

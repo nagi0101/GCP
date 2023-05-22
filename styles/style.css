@@ -164,6 +164,16 @@ button#btn-start:hover {
     margin-bottom: 2rem;
 }
 
+.result ul {
+    list-style: circle;
+    margin-left: 5rem;
+}
+
+.result ul li {
+    font-size: 1.1rem;
+    line-height: 1.3;
+}
+
 .result>h2 {
     font-size: 1.8rem;
     font-weight: bolder;
